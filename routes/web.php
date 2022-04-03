@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RealEstateSalesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,9 +15,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 Auth::routes();
 
 Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+
+Route::resource('/ventas', RealEstateSalesController::class,['names' => 'sales']);
+
+Route::post('/fetch-states', [RealEstateSalesController::class, 'getStates']);
+//Route::post('/fetch-cities', [RealEstateSalesController::class, 'getCities']);

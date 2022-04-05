@@ -10,38 +10,31 @@ use Illuminate\Http\Request;
 
 class RealEstateSalesController extends Controller
 {
-
+    
     public function index() {
 
-        $countries = Country::all();
-        $cities = City::all();
-        $suburbs = Suburb::all();
-//
+        $data['countries'] = Country::get(["country_name", "id"]);
 
-        return view('real_estate.sales', compact('countries'));
+
+        return view('real_estate.sales', $data);
     }
 
     public function getStates(Request $request){
-
-        if(isset($request->texto)) {
-            $states = State::whereCountry_id($request->texto)->get();
-            return response()->json([
-                'lista' => $states,
-                'success' => true
-            ]);
-        }
-        else {
-            return response()->json([
-                'success' => false
-            ]);
-        }
+        
+        $data['states'] = State::where("country_id", $request->country_id)->get(["state_name", "id"]);
+        return response()->json($data);
     }
 
-    public function getCities(){
+    public function getCities(Request $request){
+        
+        $data['cities'] = City::where("state_id", $request->state_id)->get(["city_name", "id"]);
+        return response()->json($data);
 
     }
 
-    public function getSuburbs(){
+    public function getSuburbs(Request $request){
 
+        $data['suburbs'] = Suburb::where("city_id", $request->city_id)->get(["suburb_name", "id"]);
+        return response()->json($data);
     }
 }

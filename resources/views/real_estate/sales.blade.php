@@ -10,97 +10,103 @@
     <h1>Ventas</h1>
     <hr>
 
-    <div class="content-sales-box">
-
-{{--        <div class="panel-sales">--}}
-{{--            <select class="form-select mb-4" aria-label="Default select example" id="country">--}}
-
-{{--                <option selected >Seleccione un Pais</option>--}}
-{{--                <option value disabled>—————————————</option>--}}
-
-{{--                @foreach( $countries as $country)--}}
-{{--                    <option value="{{ $country->id }}">{{ $country->country_name }}</option>--}}
-{{--                @endforeach--}}
-
-{{--            </select>--}}
-{{--            <!-- ------------------------------ -->--}}
-
-{{--            <select class="form-select mb-4" aria-label="" id="state">--}}
-
-{{--                <option selected >Seleccione un estado</option>--}}
-{{--                <option value disabled>—————————————</option>--}}
-
-
-{{--            </select>--}}
-{{--            <!-- ------------------------------ -->--}}
-
-{{--            <select class="form-select mb-4" aria-label="" id="city">--}}
-
-{{--                <option selected >Seleccione una ciudad</option>--}}
-{{--                <option value disabled>—————————————</option>--}}
-
-
-{{--            </select>--}}
-
-{{--            <!-- ------------------------------ -->--}}
-
-{{--            <select class="form-select" aria-label="Default select example" id="suburb">--}}
-
-{{--                <option selected >Seleccione una colonia</option>--}}
-{{--                <option value disabled>—————————————</option>--}}
-
-
-{{--            </select>--}}
-{{--        </div>--}}
-{{--        <div class="dashboard-sales">--}}
-{{--            <!-- Dashboard sales here... -->--}}
-{{--            <hr>--}}
-{{--            <select class="js-example-basic-single" name="state">--}}
-{{--                <option value="AL">Alabama</option>--}}
-{{--                ...--}}
-{{--                <option value="WY">Wyoming</option>--}}
-{{--            </select>--}}
-{{--        </div>--}}
-
-    </div>
-
+    
 
     <!-- TEST TEST TEST TEST TEST TEST TEST -->
 
-    <select name="" id="country">
-        @foreach($countries as $country)
-            <option value="{{ $country->id }}">{{ $country->country_name }}</option>
-        @endforeach
-    </select>
+<div class="col-4" style="margin: 0 auto;">
+    <form>
+        <div class="form-group mb-3">
+            <select  id="country-dd" class="form-control">
+                <option value="" selected disabled>Seleccionar país</option>
+                @foreach ($countries as $data)
+                <option value="{{$data->id}}">{{$data->country_name}}</option>
+                @endforeach
+            </select>
+        </div>
 
-    <br>
+        <div class="form-group mb-3">
+            <select id="state-dd" class="form-control">
+            </select>
+        </div>
 
-    <select name="" id="state"></select>
+        <div class="form-group mb-3">
+            <select id="city-dd" class="form-control">
+            </select>
+        </div>
 
-    <br>
+        <div class="form-group">
+            <select id="suburb-dd" class="form-control">
+            </select>
+        </div>
 
-    <select name="" id="city"></select>
+    </form>
+</div>
+
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <script>
-        const csrfToken = document.head.querySelector("[name~=csrf-token][content]").content;
-
-        document.getElementById('country').addEventListener('change',(e)=>{
-            fetch('getStates', {
-                method: 'POST',
-                body: JSON.stringify({texto : e.target.value}),
-                headers:{
-                    'Content-Type': 'application/json',
-                    "X-CSRF-Token": csrfToken
-                }
-            }).then(response =>{
-                return response.json()
-            }).then(data =>{
-                var options = "";
-                for (let i in data.list){
-                    options += '<option value="'+data.lista[i].id+'">'+data.lista[i].id+'</option>';
-                }
-                document.getElementById("state").innerHTML = options;
-            }).catch(error => console.error(error));
+        $(document).ready(function () {
+            $('#country-dd').on('change', function () {
+                var idCountry = this.value;
+                $("#state-dd").html('');
+                $.ajax({
+                    url: "{{route('getStates')}}",
+                    type: "POST",
+                    data: {
+                        country_id: idCountry,
+                        _token: '{{csrf_token()}}'
+                    },
+                    dataType: 'json',
+                    success: function (result) {
+                        $('#state-dd').html('<option selected disabled value="">Seleccionar estado</option>');
+                        $.each(result.states, function (key, value) {
+                            $("#state-dd").append('<option value="' + value
+                                .id + '">' + value.state_name + '</option>');
+                        });
+                    }
+                });
+            });
+            $('#state-dd').on('change', function () {
+                var idState = this.value;
+                $("#city-dd").html('');
+                $.ajax({
+                    url: "{{route('getCities')}}",
+                    type: "POST",
+                    data: {
+                        state_id: idState,
+                        _token: '{{csrf_token()}}'
+                    },
+                    dataType: 'json',
+                    success: function (res) {
+                        $('#city-dd').html('<option selected disabled  value="">Seleccionar ciudad</option>');
+                        $.each(res.cities, function (key, value) {
+                            $("#city-dd").append('<option value="' + value
+                                .id + '">' + value.city_name + '</option>');
+                        });
+                    }
+                });
+            });
+            $('#city-dd').on('change', function () {
+                var idCity = this.value;
+                $("#suburb-dd").html('');
+                $.ajax({
+                    url: "{{route('getSuburbs')}}",
+                    type: "POST",
+                    data: {
+                        city_id: idCity,
+                        _token: '{{csrf_token()}}'
+                    },
+                    dataType: 'json',
+                    success: function (res) {
+                        $('#suburb-dd').html('<option value="">Seleccionar ciudad</option>');
+                        $.each(res.suburbs, function (key, value) {
+                            $("#suburb-dd").append('<option value="' + value
+                                .id + '">' + value.suburb_name + '</option>');
+                        });
+                    }
+                });
+            });
         });
     </script>
 

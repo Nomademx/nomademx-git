@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\RealEstateSalesController;
+use App\Http\Livewire\NestedSelect;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,7 +24,11 @@ Auth::routes();
 
 Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 
-Route::resource('/ventas', RealEstateSalesController::class,['names' => 'sales']);
+Route::resource('/sales', RealEstateSalesController::class,['names' => 'sales']);
 
-Route::post('/fetch-states', [RealEstateSalesController::class, 'getStates']);
-//Route::post('/fetch-cities', [RealEstateSalesController::class, 'getCities']);
+
+Route::post('/get-states', [RealEstateSalesController::class, 'getStates'])->name('getStates');
+Route::post('/get-cities', [RealEstateSalesController::class, 'getCities'])->name('getCities');
+Route::post('/get-suburbs', [RealEstateSalesController::class, 'getSuburbs'])->name('getSuburbs');
+
+

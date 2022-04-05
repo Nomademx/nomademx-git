@@ -9,7 +9,7 @@ class Suburb extends Model
 {
     use HasFactory;
 
-//   // public static function get()
-//    {
-//    }
+    public function city(){
+        return $this->belongsTo(City::class);
+    }
 }

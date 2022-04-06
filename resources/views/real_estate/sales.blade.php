@@ -1,6 +1,7 @@
 
 
 @extends('theme_layout.header')
+@include('real_estate.map')
 
 @section('title', 'Ventas')
 
@@ -10,38 +11,99 @@
     <h1>Ventas</h1>
     <hr>
 
-    
+    <div class="sales-container">
+        <div class="sales-select-container">
+            <form>
+                <div class="form-group mb-3">
+                    <select  id="country-dd" class="form-control">
+                        <option value="" selected disabled>Seleccionar país</option>
+                        @foreach ($countries as $data)
+                            <option value="{{$data->id}}">{{$data->country_name}}</option>
+                        @endforeach
+                    </select>
+                </div>
 
-    <!-- TEST TEST TEST TEST TEST TEST TEST -->
+                <div class="form-group mb-3">
+                    <select id="state-dd" class="form-control">
+                    </select>
+                </div>
 
-<div class="col-4" style="margin: 0 auto;">
-    <form>
-        <div class="form-group mb-3">
-            <select  id="country-dd" class="form-control">
-                <option value="" selected disabled>Seleccionar país</option>
-                @foreach ($countries as $data)
-                <option value="{{$data->id}}">{{$data->country_name}}</option>
-                @endforeach
-            </select>
+                <div class="form-group mb-3">
+                    <select id="city-dd" class="form-control">
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <select id="suburb-dd" class="form-control">
+                    </select>
+                </div>
+
+            </form>
         </div>
 
-        <div class="form-group mb-3">
-            <select id="state-dd" class="form-control">
-            </select>
-        </div>
+        <div class="dashboard-container">
 
-        <div class="form-group mb-3">
-            <select id="city-dd" class="form-control">
-            </select>
-        </div>
+            <div class="dash-left">
+                <h3><i class="fa-solid fa-house-chimney sale-sp-icon"></i>Venta</h3>
+                <p>Precio promedio m2:</p>
+                <p>N° Propiedades comparadas:</p>
 
-        <div class="form-group">
-            <select id="suburb-dd" class="form-control">
-            </select>
-        </div>
+                <hr>
 
-    </form>
-</div>
+                <h3><i class="fa-solid fa-house-chimney sale-sp-icon"></i>Preventa</h3>
+                <p>Precio promedio m2:</p>
+                <p>N° Propiedades comparadas:</p>
+            </div>
+
+            <div class="dash-right">
+                <div class="map-temp">
+
+                    @yield('map')
+
+                </div>
+                <h3>Información demográfica del area</h3>
+                <div class="graph-container">
+
+                    <div class="graph-box">
+                        <div class="icon-container">
+                            <i class="fa-solid fa-users user-ico"></i>
+                            <h4>Total</h4>
+                        </div>
+                        <div class="data-container">
+                            <p>0</p>
+                        </div>
+                    </div>
+
+                    <div class="graph-box">
+                        <div class="icon-container">
+                            <i class="fas fa-male user-ico"></i>
+                            <h4>Hombres</h4>
+                        </div>
+                        <div class="data-container">
+                            <p>0</p>
+                        </div>
+                    </div>
+
+                    <div class="graph-box">
+                        <div class="icon-container">
+                            <i class="fas fa-female user-ico"></i>
+                            <h4>Mujeres</h4>
+                        </div>
+                        <div class="data-container">
+                            <p>0</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+
 
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -109,6 +171,8 @@
             });
         });
     </script>
+
+
 
 
 @endsection

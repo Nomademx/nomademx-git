@@ -34,7 +34,7 @@ class RealEstateSalesController extends Controller
 
     public function getSuburbs(Request $request){
 
-        $data['suburbs'] = Suburb::where("city_id", $request->city_id)->get(["suburb_name", "total_male", "id"]);
+        $data['suburbs'] = Suburb::where("city_id", $request->city_id)->get();
         return response()->json($data);
     }
 }

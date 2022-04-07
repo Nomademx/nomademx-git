@@ -1,7 +1,7 @@
 
 
 @section('map')
-    <div class="mapdiv">
+    <div id="panzoom" class="mapdiv">
 
         <!-- width="100%" height="100%"  -->
 {{--        <?xml version="1.0" encoding="UTF-8" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">--}}
@@ -293,29 +293,7 @@
     </div>
 
 
-    {{--  MAP SVG-CONTROLL  --}}
-    <script src="path/to/svg.js"></script>
-    <script src="path/to/svg.pan-zoom.js"></script>
-    <script src="path/to/svg.draggy.js"></script>
-    <script>
-        var svg = new SVG($(".graph").get(0)).size("100%", 900); //mapdiv
-        var links = svg.group();
-        var markers = svg.group();
-        var nodes = svg.group();
 
-        // Add draggable circles
-        var g1 = nodes.group().translate(300, 200).draggy();
-        g1.circle(80).fill("#C2185B");
-
-        var g2 = nodes.group().translate(100, 200);
-        g2.circle(50).fill("#E91E63");
-
-        var g3 = nodes.group().translate(200, 400);
-        g3.circle(100).fill("#FF5252");
-
-        // Make the group pannable and zoomable
-        nodes.panZoom();
-    </script>
 
 
 @endsection

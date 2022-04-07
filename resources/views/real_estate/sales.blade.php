@@ -80,7 +80,7 @@
                             <h4>Hombres</h4>
                         </div>
                         <div class="data-container">
-                            <p>0</p>
+                            <p id="total-male"></p>
                         </div>
                     </div>
 
@@ -100,6 +100,7 @@
 
         </div>
     </div>
+
 
 
 
@@ -164,7 +165,11 @@
                         $('#suburb-dd').html('<option value="">Seleccionar ciudad</option>');
                         $.each(res.suburbs, function (key, value) {
                             $("#suburb-dd").append('<option value="' + value
-                                .id + '">' + value.suburb_name + '</option>');
+                                .id + '">' + value.suburb_name + " - " + value.total_male +'</option>');
+
+                                const totalMale = document.getElementById('total-male');
+                                totalMale.innerHTML = value.total_male;
+
                         });
                     }
                 });
@@ -172,7 +177,73 @@
         });
     </script>
 
+{{--    <!-- Image map -->--}}
 
+
+    <!-- From A CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@panzoom/panzoom/dist/panzoom.min.js"></script>
+
+    <script>
+        //get main container
+        const elem = document.getElementById('panzoom');
+        //get zoom in button
+        const zoomInButton = document.getElementById('zoom-in');
+        //get zoom out button
+        const zoomOutButton = document.getElementById('zoom-out');
+        //get reset button
+        const resetButton = document.getElementById('reset');
+
+        const panzoom = Panzoom(elem);
+        const parent = elem.parentElement
+
+        //enabling events
+        parent.addEventListener('wheel', panzoom.zoomWithWheel);
+        zoomInButton.addEventListener('click', panzoom.zoomIn)
+        zoomOutButton.addEventListener('click', panzoom.zoomOut)
+        resetButton.addEventListener('click', panzoom.reset)
+
+        // const element = document.getElementById('panzoom')
+        // const panzoom = Panzoom(element, {
+        //     animate: true,
+        //     canvas: true,
+        //     cursor: 'move',
+        //     disablePan: false,
+        //     disableZoom: false,
+        //     disableXAxis: false,
+        //     disableYAxis: false,
+        //     duration: 200,
+        //     easing: 'ease-in-out',
+        //     exclude: [],
+        //     excludeClass: 'panzoom-exclude',
+        //     handleStartEvent: function (e) {
+        //         e.preventDefault();
+        //         e.stopPropagation();
+        //     },
+        //     maxScale: 4,
+        //     minScale: 0.125,
+        //     overflow: 'hidden',
+        //     panOnlyWhenZoomed: true,
+        //     relative: true,
+        //     setTransform: setTransform,
+        //     startX: 0,
+        //     startY: 0,
+        //     startScale: 1,
+        //     step: 0.3,
+        //     contain: true,
+        //     touchAction: 'none'
+        // });
+        //
+        // panzoom.zoomOut(OPTIONS);
+
+    </script>
+
+
+
+
+    <script>
+
+
+    </script>
 
 
 @endsection

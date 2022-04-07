@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class RealEstateSalesController extends Controller
 {
-    
+
     public function index() {
 
         $data['countries'] = Country::get(["country_name", "id"]);
@@ -20,13 +20,13 @@ class RealEstateSalesController extends Controller
     }
 
     public function getStates(Request $request){
-        
+
         $data['states'] = State::where("country_id", $request->country_id)->get(["state_name", "id"]);
         return response()->json($data);
     }
 
     public function getCities(Request $request){
-        
+
         $data['cities'] = City::where("state_id", $request->state_id)->get(["city_name", "id"]);
         return response()->json($data);
 
@@ -34,7 +34,7 @@ class RealEstateSalesController extends Controller
 
     public function getSuburbs(Request $request){
 
-        $data['suburbs'] = Suburb::where("city_id", $request->city_id)->get(["suburb_name", "id"]);
+        $data['suburbs'] = Suburb::where("city_id", $request->city_id)->get(["suburb_name", "total_male", "id"]);
         return response()->json($data);
     }
 }

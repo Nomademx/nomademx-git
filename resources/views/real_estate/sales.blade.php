@@ -70,7 +70,7 @@
                             <h4>Total</h4>
                         </div>
                         <div class="data-container">
-                            <p>0</p>
+                            <p id="total-population"></p>
                         </div>
                     </div>
 
@@ -90,7 +90,7 @@
                             <h4>Mujeres</h4>
                         </div>
                         <div class="data-container">
-                            <p>0</p>
+                            <p id="total-female"></p>
                         </div>
                     </div>
                 </div>
@@ -162,18 +162,37 @@
                     },
                     dataType: 'json',
                     success: function (res) {
-                        $('#suburb-dd').html('<option value="">Seleccionar ciudad</option>');
+                        $('#suburb-dd').html('<option value="">Seleccionar ciudad</option>');                        
                         $.each(res.suburbs, function (key, value) {
                             $("#suburb-dd").append('<option value="' + value
                                 .id + '">' + value.suburb_name + " - " + value.total_male +'</option>');
+                        });
 
-                                const totalMale = document.getElementById('total-male');
-                                totalMale.innerHTML = value.total_male;
+                        $('#suburb-dd').on('change', function(){
+                            var idSuburb = this.value;
+
+                            // Busca dentro del objeto por el Id de la colonia
+                            var suburbInfo = $.grep(res.suburbs, function(res){
+                                return res.id == idSuburb;
+                            });
+
+                            const totalMale = document.getElementById('total-male');
+                            totalMale.innerHTML = suburbInfo[0].total_male;
+
+                            // const totalFemale = document.getElementById('total-female');
+                            // totalMale.innerHTML = suburbInfo[0].total_female;
+
+                            // const totalPopulation = document.getElementById('total-population');
+                            // totalMale.innerHTML = suburbInfo[0].total-population;
+
+
+
 
                         });
                     }
                 });
             });
+            
         });
     </script>
 

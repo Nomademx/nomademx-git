@@ -1,6 +1,5 @@
+@extends('adminlte::page')
 
-
-@extends('theme_layout.header')
 @include('real_estate.map')
 
 @section('title', 'Ventas')
@@ -8,7 +7,7 @@
 @section('content')
 
 
-    <h1>Ventas</h1>
+    <h1 class="pt-4">Ventas</h1>
     <hr>
 
     <div class="sales-container">
@@ -101,10 +100,10 @@
         </div>
     </div>
 
-
-
-
-
+    @section('css')
+<!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles/style.css">
+    @endsection
 
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 

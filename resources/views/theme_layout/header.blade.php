@@ -54,6 +54,12 @@
                     </ul>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link active" href="#">Agentes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{{ route('users.index') }}">Usuarios</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link disabled">Planes</a>
                 </li>
                 <li class="nav-item">

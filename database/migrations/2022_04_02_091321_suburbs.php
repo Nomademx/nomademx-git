@@ -19,8 +19,8 @@ return new class extends Migration
             $table->bigInteger('zip_code')->unsigned();
             $table->string('suburb_name');
 
-            $table->bigInteger('cities_id')->unsigned();
-            $table->foreign('cities_id')->references('id')->on('cities')->onDelete('cascade');
+            $table->bigInteger('city_id')->unsigned();
+            $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
 
         });
     }

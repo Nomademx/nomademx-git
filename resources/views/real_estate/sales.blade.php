@@ -1,6 +1,5 @@
+@extends('adminlte::page')
 
-
-@extends('theme_layout.header')
 @include('real_estate.map')
 
 @section('title', 'Ventas')
@@ -8,7 +7,7 @@
 @section('content')
 
 
-    <h1>Ventas</h1>
+    <h1 class="pt-4">Ventas</h1>
     <hr>
 
     <div class="sales-container">
@@ -45,13 +44,13 @@
 
             <div class="dash-left">
                 <h3><i class="fa-solid fa-house-chimney sale-sp-icon"></i>Venta</h3>
-                <p>Precio promedio m2:</p>
+                <p>Precio promedio m2: <span id="sale_m2"></span></p>
                 <p>N° Propiedades comparadas:</p>
 
                 <hr>
 
                 <h3><i class="fa-solid fa-house-chimney sale-sp-icon"></i>Preventa</h3>
-                <p>Precio promedio m2:</p>
+                <p>Precio promedio m2: <span id="pre_sale_m2"></span></p>
                 <p>N° Propiedades comparadas:</p>
             </div>
 
@@ -101,10 +100,10 @@
         </div>
     </div>
 
-
-
-
-
+    @section('css')
+<!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles/style.css">
+    @endsection
 
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -165,7 +164,7 @@
                         $('#suburb-dd').html('<option value="">Seleccionar ciudad</option>');                        
                         $.each(res.suburbs, function (key, value) {
                             $("#suburb-dd").append('<option value="' + value
-                                .id + '">' + value.suburb_name + " - " + value.total_male +'</option>');
+                                .id + '">' + value.suburb_name + '</option>');
                         });
 
                         $('#suburb-dd').on('change', function(){
@@ -179,15 +178,17 @@
                             const totalMale = document.getElementById('total-male');
                             totalMale.innerHTML = suburbInfo[0].total_male;
 
-                            // const totalFemale = document.getElementById('total-female');
-                            // totalMale.innerHTML = suburbInfo[0].total_female;
+                            const totalFemale = document.getElementById('total-female');
+                            totalFemale.innerHTML = suburbInfo[0].total_female;
 
-                            // const totalPopulation = document.getElementById('total-population');
-                            // totalMale.innerHTML = suburbInfo[0].total-population;
+                            const totalPopulation = document.getElementById('total-population');
+                            totalPopulation.innerHTML = suburbInfo[0].total_population;
 
+                            const preSalePrice = document.getElementById('sale_m2');
+                            preSalePrice.innerHTML = '$' + suburbInfo[0].pre_sale_m2 + ' pesos.';
 
-
-
+                            const salePrice = document.getElementById('pre_sale_m2');
+                            salePrice.innerHTML = '$' + suburbInfo[0].sale_m2 + ' pesos.';
                         });
                     }
                 });

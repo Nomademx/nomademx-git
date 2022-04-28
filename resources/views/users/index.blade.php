@@ -3,7 +3,6 @@
 @section('title', 'Usuarios')
 @section('content')
 
-<a href="/user/create" role="button" class="btn btn-primary mt-4 mb-2">Registrar usuario</a>
 
 <div class="card">
     
@@ -23,7 +22,11 @@
                 <tr>
                     <td class="align-middle">{{ $user->name }}</td>
                     <td class="align-middle">{{ $user->email }}</td>
-                    <td class="align-middle">un rol</td>
+                    <td class="align-middle">
+                    @foreach($user->getRoleNames() as $rolName)
+                                <span class="badge badge-dark">{{ $rolName }}</span>
+                            @endforeach
+                    </td>
                     <td class="align-middle">
                     <a href="{{ route('users.show', $user->id) }}" role="button" class="btn btn-dark display:inline">Ver</a>
                     <a href="{{ route('users.edit', $user->id) }}" role="button" class="btn btn-info display:inline">Editar</a>

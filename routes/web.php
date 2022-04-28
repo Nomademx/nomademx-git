@@ -27,7 +27,12 @@ Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'inde
 
 Route::resource('/sales', RealEstateSalesController::class,['names' => 'sales']);
 
-Route::resource('/users', UserController::class);
+Route::resource('/admin/users', UserController::class);
+Route::get('/agents', [UserController::class, 'getAgents'])->name('users.getAgents');
+Route::get('/agents/{user}', [UserController::class, 'getAgent'])->name('users.getAgent');
+
+
+// Route::get('/users/profile/', [UserController::class, 'getProfile'])->name('users.profile');
 // ruta user/agent
 
 

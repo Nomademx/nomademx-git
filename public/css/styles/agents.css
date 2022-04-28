@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #DEB493;
+}
+
+.outer-div{
+    margin: 0 auto;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, 250px);
+}
+
+.user-card{
+    background-color: white;
+    width: 250px;
+    border-top-right-radius: 2rem;
+    border-top-left-radius: 2rem;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    text-align: center;
+    box-shadow: 0 15px 10px -10px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3),
+    0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+
+.user-img-container{
+    border-radius: 50%;
+    width: 90px;
+    height: 90px;
+    position: relative;
+    top: -50px;
+    border: 5px solid white;
+    background-size: contain;
+    overflow: hidden;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-img{
+    width: 150px;
+    height: 100px;
+    object-fit: cover;
+
+}
+
+
+.background-img{
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    width: 101%;
+    height: 120px;
+    background: url("https://images.unsplash.com/photo-1511207538754-e8555f2bc187?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=88672068827eaeeab540f584b883cc66&auto=format&fit=crop&w=1164&q=80");
+}
+
+.user-text{
+    position: relative;
+    top: -40px;
+    font-family: 'Outfit', 'sans-serif';
+}
+
+.user-text h4{
+    font-size: 1.2rem;
+}
+
+.user-text p {
+    margin-top: 1rem;
+    color: dimgray;
+}
+

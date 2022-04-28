@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -17,6 +20,7 @@ class UserController extends Controller
      */
     public function index()
     {
+
         $users = User::all();
         return view('users.index', compact('users'));
     }
@@ -61,7 +65,9 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('users.edit', compact('user'));
+        $roles = Role::pluck('name', 'id');
+
+        return view('users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -82,7 +88,6 @@ class UserController extends Controller
             'address'                   => 'nullable',
             'official_identification'   => 'nullable|mimes:pdf,jpeg',
             'image'                     => 'nullable|image',
-            'roles'                     => 'nullable'
         ]);
 
 
@@ -127,7 +132,12 @@ class UserController extends Controller
         // Actualiza el usuario
         $user->update($input);
 
-        return redirect('users');
+        // Encuentra el Usuario en la tabla de roles y lo elimina para posteriormente actualizarlo
+        DB::table('model_has_roles')->where('model_id', $user->id)->delete();
+        // Asignación de rol
+        $user->assignRole($request->roles);
+
+        return redirect('admin/users');
     }
 
     /**
@@ -150,6 +160,24 @@ class UserController extends Controller
         $user->delete();
         
         
-        return redirect('users');
+        return redirect('admin/users');
+    }
+
+    public function getProfile(){
+        
+        $user = Auth::user();
+
+        return view('users.profile', compact('user'));
+    }
+
+    public function getAgents(){
+
+        $agents = User::role('Cliente')->get();
+        return view('agents.index', compact('agents'));
+    }
+
+    public function getAgent(User $user){
+
+        return view('agents.show', compact('user'));
     }
 }

@@ -36,7 +36,6 @@
                 <div class="form-group">
                     {!! Form::label('phone_number', 'Teléfono') !!}
                     {!! Form::text('phone_number', null, array('class' => 'form-control')) !!}
-
                 </div>
             </div>
 
@@ -44,7 +43,13 @@
                 <div class="form-group">
                     {!! Form::label('address', 'Dirección') !!}
                     {!! Form::text('address', null, array('class' => 'form-control')) !!}
-
+                </div>
+            </div>
+            
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    {!! Form::label('roles', 'Rol', ['class' => 'ml-1']) !!}
+                    {!! Form::select('roles', $roles, null, ['class' => 'form-control']) !!}
                 </div>
             </div>
 

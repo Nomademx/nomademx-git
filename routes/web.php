@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\RealEstateSalesController;
+use App\Http\Controllers\SaleController;
 use App\Http\Controllers\UserController;
 use App\Http\Livewire\NestedSelect;
 use Illuminate\Support\Facades\Auth;
@@ -25,19 +26,19 @@ Auth::routes();
 
 Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 
-Route::resource('/sales', RealEstateSalesController::class,['names' => 'sales']);
+//Rutas para combobox de Pais/estado/ciudad/colonia
+Route::post('/get-states', [SaleController::class, 'getStates'])->name('getStates');
+Route::post('/get-cities', [SaleController::class, 'getCities'])->name('getCities');
+Route::post('/get-suburbs', [SaleController::class, 'getSuburbs'])->name('getSuburbs');
 
-Route::resource('/admin/users', UserController::class);
+//Rutas para Venta/Renta/Preventa
+Route::resource('/sales', SaleController::class);
+
+//Rutas para usuario
+Route::get('/profile', [UserController::class, 'getProfile'])->name('users.getProfile');
 Route::get('/agents', [UserController::class, 'getAgents'])->name('users.getAgents');
 Route::get('/agents/{user}', [UserController::class, 'getAgent'])->name('users.getAgent');
+Route::resource('/admin/users', UserController::class);
 
-
-// Route::get('/users/profile/', [UserController::class, 'getProfile'])->name('users.profile');
-// ruta user/agent
-
-
-Route::post('/get-states', [RealEstateSalesController::class, 'getStates'])->name('getStates');
-Route::post('/get-cities', [RealEstateSalesController::class, 'getCities'])->name('getCities');
-Route::post('/get-suburbs', [RealEstateSalesController::class, 'getSuburbs'])->name('getSuburbs');
 
 

@@ -7,7 +7,7 @@
 @section('content')
 
 
-    <h1 class="pt-4">Ventas</h1>
+<h1 class="pt-4">Ventas</h1>
     <hr>
 
     <div class="sales-container">

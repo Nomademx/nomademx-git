@@ -167,7 +167,7 @@ class UserController extends Controller
         
         $user = Auth::user();
 
-        return view('users.profile', compact('user'));
+        return view('agents.show', compact('user'));
     }
 
     public function getAgents(){
@@ -180,4 +180,5 @@ class UserController extends Controller
 
         return view('agents.show', compact('user'));
     }
+
 }

@@ -20,11 +20,9 @@ class SaleController extends Controller
      */
     public function index()
     {
-        $agents = User::role('Cliente')->get();
-        $sales = Sale::all();
-        $data['countries'] = Country::get(["country_name", "id"]);
+        $sales = Sale::get();
 
-        return view('sales.index', compact('agents', 'sales', 'data'));
+        return view('sales.index', compact('sales'));
     }
 
     /**
@@ -32,10 +30,14 @@ class SaleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Sale $sale)
     {
-        $user = Auth::user();
-        return view('sales.create', compact('user'));
+        $data['countries'] = Country::get(["country_name", "id"]);
+        $property_types = $sale->getPropertyTypes();
+        $sale_types = $sale->getSaleTypes();
+
+        // $sale_types = ['Renta', 'Venta', 'Preventa'];
+        return view('sales.create', $data, compact('property_types', 'sale_types'));
     }
 
     /**
@@ -46,7 +48,28 @@ class SaleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = Auth::user();
+        $request->request->add(['user_id' => $user->id]);
+
+        $input = $request->validate([
+            'user_id'         => 'required',
+            'country_id'      => 'required',
+            'state_id'        => 'required',
+            'city_id'         => 'required',
+            'suburb_id'       => 'required',
+            'image'           => 'required|image',
+            'description'     => 'required',
+            'property_type'   => 'required',
+            'price'           => 'required',
+            'sale_type'       => 'required',
+            'street'          => 'required'
+        ]);
+
+        $input['image'] = $request->file('image')->store('SaleImages');
+
+        Sale::create($input);
+
+        return redirect('sales');
     }
 
     /**
@@ -57,7 +80,7 @@ class SaleController extends Controller
      */
     public function show(Sale $sale)
     {
-        //
+        return view ('sales.show', compact('sale'));
     }
 
     /**

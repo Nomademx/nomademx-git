@@ -15,15 +15,26 @@ class Sale extends Model
         'state_id',
         'city_id',
         'suburb_id',
+        'image',
         'description',
         'status',
         'property_type',
-        'location',
         'price',
         'sale_type',
-        'image',
+        'street',
         'sold_at'
     ];
+
+    protected $property_types = ['Casa', 'Departamento', 'Terreno'];
+    protected $sale_types = ['Renta', 'Venta', 'Preventa'];
+
+    public function getPropertyTypes(){
+        return $this->property_types;
+    }
+
+    public function getSaleTypes(){
+        return $this->sale_types;
+    }
 
     public function user(){
         return $this->belongsTo(User::class);

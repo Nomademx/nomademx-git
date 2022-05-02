@@ -44,7 +44,7 @@ return new class extends Migration
             $table->string('image');
             $table->string('description');
             $table->enum('status', ['Activa', 'Vendida'])->default('Activa');
-            $table->enum('property_type', ['Casa', 'Departamento', 'Terreno,']);
+            $table->enum('property_type', ['Casa', 'Departamento', 'Terreno']);
             $table->string('street');
             $table->string('price');
             $table->enum('sale_type', ['Renta', 'Venta', 'Preventa']);

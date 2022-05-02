@@ -64,4 +64,8 @@ class User extends Authenticatable
         return 'profile/username';
     }
 
+    public function sales(){
+        return $this->hasMany(Sale::class);
+    }
+
 }

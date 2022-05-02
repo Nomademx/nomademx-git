@@ -16,4 +16,8 @@ class City extends Model
     public function suburbs(){
         return $this->hasMany(Suburb::class);
     }
+
+    public function sales(){
+        return $this->hasMany(Sale::class);
+    }
 }
